@@ -30,5 +30,8 @@
   "homepage": "https://github.com/TOVTC/team-profile-generator-scscbc-challenge#readme",
   "devDependencies": {
     "jest": "^27.5.1"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.2"
   }
 }

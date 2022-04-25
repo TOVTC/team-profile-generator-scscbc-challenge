@@ -11,5 +11,5 @@ test("creates an Intern object", () => {
 
 test("retrieves the Intern's school name", () => {
     const intern = new Intern("Moose", 123, "puptheband@gmail.com", "Intern", "Pine Point Secondary")
-    expect(intern.getSchool()).toEqual(expect.any(String));
+    expect(intern.getSchool()).toBe("Pine Point Secondary");
 });

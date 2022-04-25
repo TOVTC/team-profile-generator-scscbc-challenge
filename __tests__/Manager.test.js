@@ -11,5 +11,5 @@ test("creates a Manager object", () => {
 
 test("retrieves the Manager's office number", () => {
     const manager = new Manager("Matilda", 123, "puptheband@gmail.com", "Manager", "APT707")
-    expect(manager.getOffice()).toEqual(expect.any(String));
+    expect(manager.getOffice()).toBe("APT707");
 });

@@ -1,7 +1,3 @@
-// identify the logic and components that need go into each type of employee
-// write logic to test for whether these employees contain the correct information using dummy variables/hard-coded examples
-// create classes and methods for each of the employee types
-// once it is confirmed that all types of employees can be constructed without error
 // write a node generator function that uses inquirer to ask the user for required information
 // then, output the collected information to generate employee objects
 // transfer the employee objects to an array to make an HTML file
@@ -9,26 +5,79 @@
 // add a style.css file and/or implement boostrap for final page styling
 // add validation (time permitting)
 
-// requirements for each type of employee
-// base employee constructor
-    // name > expect any string
-    // id > expect any number
-    // email > expect any string (containing @)
-    // getName() > returns name property
-    // getID() > returns id property
-    // getEmail
-    // getRole() - returns "Employee" > returns staff role property, here is placeholder "employee" value
-// extend for Manager
-    // office number > expect any string
-    // getRole() - returns "Manager" > returns staff role property
-// extend for Engineer
-    // github - github username > expect any string
-    // getGitHub() > returns github.com/${github}
-    //getRole() - returns "Engineer" > returns staff role property
-// extend for Intern
-    // school > expect any string
-    // getSchool() > returns school property
-    // getRole() - returns "Intern" > returns staff role property
+const inquirer = require("inquirer");
+
+// for the first round, answers.role = "manager"
+
+const employeeList = [];
+
+const managerQuestions = [
+    {
+        type: "input",
+        name: "name",
+        message: "Please enter team manager's full name:"
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "Please enter team manager's staff id number:"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Please enter team manager's full email address:"
+    }
+];
+
+const questions = [
+    {
+        type: "input",
+        name: "name",
+        message: "Enter this employee's full name:"
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "Enter this employee's staff id number:"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Enter this employee's full email address:"
+    }
+];
 
 
-    // return this.role || "employee" (or use the same logic as getInventory)
+
+// inquirer.prompt(questions).then(answers => if ({nextType !== Exit}) function to sort and re-run inquirer.prompt()} else { return } {employeeProfiles.push(answers); const newQuestions = questions.push({},{}); inquirer.prompt(newQuestions)})
+
+inquirer.prompt(managerQuestions)
+    .then(answers => {
+        answers.role = "Manager";
+        employeeList.push(JSON.stringify(answers));
+        console.log("manager " + employeeList);
+        followUp();
+    });
+
+function followUp() {
+    inquirer.prompt([{
+        type: "list",
+        name: "nextRole",
+        message: "To add a team member, select the role of the member to be added. Select 'Exit' to finish.",
+        choices: ["Engineer", "Intern", "Exit"],
+        default: "Exit"
+    }])
+    .then(response => {
+        if (response.nextRole !== "Exit") {//try destructuring here 
+            inquirer.prompt(questions)
+            .then(answers => {
+                employeeList.push(JSON.stringify(answers));
+                console.log("if " + employeeList);
+                followUp();
+            })
+        } else {
+            console.log("else " + employeeList);
+            return;
+        }
+    });
+}
