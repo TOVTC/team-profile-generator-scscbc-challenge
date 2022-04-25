@@ -98,7 +98,7 @@ function buildTeam() {
             } else if (role === "Intern") {
                 employeeList.push(JSON.stringify(new Intern(name, id, email, role, school)));//remove stringify?
             } else {
-                console.log("placeholder")
+                console.log("placeholder")//remove if no time to generate custom
             }
             if (add) {
                 buildTeam();
