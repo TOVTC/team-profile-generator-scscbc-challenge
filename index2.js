@@ -1,8 +1,6 @@
-// write a node generator function that uses inquirer to ask the user for required information
-// then, output the collected information to generate employee objects
-// transfer the employee objects to an array to make an HTML file
 // do a mockup of the final HTML
 // add a style.css file and/or implement boostrap for final page styling
+// export information gathered from Inquirer to generate HTML
 // add validation (time permitting)
 
 const inquirer = require("inquirer");
@@ -40,23 +38,44 @@ class Team {
             {
                 type: "list",
                 name: "role",
-                message: "What role does this team member fulfill?",
-                choices: ["Engineer", "Intern", "Custom"],
+                message: "Select an employee role to add a new team member or select 'Finish' to exit.",
+                choices: ["Engineer", "Intern", "Custom", "Finish"],
             },
             {
                 type: "input",
                 name: "name",
-                message: "Enter this employee's full name:"
+                message: "Enter this employee's full name:",
+                when: ({role}) => {
+                    if (role !== "Finish") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
             },
             {
                 type: "input",
                 name: "id",
-                message: "Enter this employee's staff id number:"
+                message: "Enter this employee's staff id number:",
+                when: ({role}) => {
+                    if (role !== "Finish") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
             },
             {
                 type: "input",
                 name: "email",
-                message: "Enter this employee's full email address:"
+                message: "Enter this employee's full email address:",
+                when: ({role}) => {
+                    if (role !== "Finish") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
             },
             {
                 type: "input",
@@ -93,24 +112,6 @@ class Team {
                         return false;
                     }
                 }
-            },
-            {
-                type: "input",
-                name: "link",
-                message: "Enter a link for this employee:",
-                when: ({role}) => {
-                    if (role === "Custom") {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            },
-            {
-                type: "confirm",
-                name: "add",
-                message: "Would you like to add another team member?",
-                default: true
             }
         ];
         
@@ -130,29 +131,30 @@ class Team {
     buildTeam() {
         inquirer.prompt(this.questions)
             .then(res => {
-                const {name, id, email, role, github, school, task, link, add} = res;
+                const {name, id, email, role, github, school, task} = res;
                 if (role === "Engineer") {
                     this.employeeList.push(new Engineer(name, id, email, role, github));
+                    this.buildTeam();
+                    return;
                 } else if (role === "Intern") {
                     this.employeeList.push(new Intern(name, id, email, role, school));
-                } else {
-                    this.employeeList.push(new Custom(name, id, email, role, task, link));
-                }
-                if (add) {
+                    this.buildTeam();
+                    return;
+                } else if (role === "Custom"){
+                    this.employeeList.push(new Custom(name, id, email, role, task));
                     this.buildTeam();
                     return;
                 } else {
-                    console.log(this.employeeList);
-                    // return this.employeeList;
+                    return this.employeeList;
                 }
             })
-            // .then(res => {
-            //     if (!res) {
-            //         return;
-            //     } else {
-            //         console.log(res);
-            //     }
-            // })
+            .then(res => {
+                if (!res) {
+                    return;
+                } else {
+                    console.log(res);
+                }
+            })
     }
 }
 
@@ -161,5 +163,4 @@ module.exports = new Team().addManager();
 // push to a different array depending on type - or use .filter()
 // if employeeList array is empty, then new Manager, otherwise, match type
 // self-refer to constructor class?
-// conditional manager inquirier?
-// custom employee class
+// conditional manager inquirer?

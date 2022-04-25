@@ -1,0 +1,12 @@
+* {
+    box-sizing: border-box;
+  }
+
+header {
+    height: 150px;
+}
+
+.custom {
+    height: 100%;
+    width: 275px;
+}
