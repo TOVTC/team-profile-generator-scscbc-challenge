@@ -6,8 +6,9 @@
 // add validation (time permitting)
 
 const inquirer = require("inquirer");
-
-// for the first round, answers.role = "manager"
+const Engineer = require("./lib/Engineer");
+const Manager = require("./lib/Manager");
+const Intern = require("./lib/Intern")
 
 const employeeList = [];
 
@@ -26,10 +27,21 @@ const managerQuestions = [
         type: "input",
         name: "email",
         message: "Please enter team manager's full email address:"
+    },
+    {
+        type: "input",
+        name: "office",
+        message: "Please enter team manager's office number:"
     }
 ];
 
 const questions = [
+    {
+        type: "list",
+        name: "role",
+        message: "What role does this team member fulfill?",
+        choices: ["Engineer", "Intern"],
+    },
     {
         type: "input",
         name: "name",
@@ -44,40 +56,52 @@ const questions = [
         type: "input",
         name: "email",
         message: "Enter this employee's full email address:"
+    },
+    {
+        type: "input",
+        name: "school",
+        message: "Enter this intern's school name:",
+        when: ({role}) => {
+            if (role === "Intern") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
+    {
+        type: "confirm",
+        name: "add",
+        message: "Would you like to add another team member?",
+        default: true
     }
 ];
 
-
-
 // inquirer.prompt(questions).then(answers => if ({nextType !== Exit}) function to sort and re-run inquirer.prompt()} else { return } {employeeProfiles.push(answers); const newQuestions = questions.push({},{}); inquirer.prompt(newQuestions)})
+// push to a different array depending on type - or use .filter()
+// if employeeList array is empty, then new Manager, otherwise, match type
 
 inquirer.prompt(managerQuestions)
-    .then(answers => {
-        answers.role = "Manager";
-        employeeList.push(JSON.stringify(answers));
-        console.log("manager " + employeeList);
-        followUp();
+    .then(res => {
+        const {name, id, email, office} = res;
+        employeeList.push(JSON.stringify(new Manager(name, id, email, "Manager", office)));//probably remove stringify from here later - access variables using methods instead
+        console.log("Answer the following prompts to build out the team's profiles.");
+        buildTeam();
     });
 
-function followUp() {
-    inquirer.prompt([{
-        type: "list",
-        name: "nextRole",
-        message: "To add a team member, select the role of the member to be added. Select 'Exit' to finish.",
-        choices: ["Engineer", "Intern", "Exit"],
-        default: "Exit"
-    }])
-    .then(response => {
-        if (response.nextRole !== "Exit") {//try destructuring here 
-            inquirer.prompt(questions)
-            .then(answers => {
-                employeeList.push(JSON.stringify(answers));
-                console.log("if " + employeeList);
-                followUp();
-            })
-        } else {
-            console.log("else " + employeeList);
-            return;
-        }
-    });
+function buildTeam() {
+    inquirer.prompt(questions)
+        .then(res => {
+            const {name, id, email, role, github, school, add} = res;
+            if (role === "Engineer") {
+                employeeList.push(JSON.stringify(new Engineer(name, id, email, role, github)));//remove stringify?
+            } else if (role === "Intern") {
+                employeeList.push(JSON.stringify(new Intern(name, id, email, role, school)));//remove stringify?
+            } else {
+                console.log("placeholder")
+            }
+            if (add) {
+                buildTeam();
+            }
+        });
 }
