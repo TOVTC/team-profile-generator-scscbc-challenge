@@ -8,7 +8,8 @@
 const inquirer = require("inquirer");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
-const Intern = require("./lib/Intern")
+const Intern = require("./lib/Intern");
+const Custom = require("./lib/Custom");
 
 class Team {
     constructor() {
@@ -40,7 +41,7 @@ class Team {
                 type: "list",
                 name: "role",
                 message: "What role does this team member fulfill?",
-                choices: ["Engineer", "Intern"],
+                choices: ["Engineer", "Intern", "Custom"],
             },
             {
                 type: "input",
@@ -60,7 +61,7 @@ class Team {
             {
                 type: "input",
                 name: "github",
-                message: "Enter this engineer's GitHub username:",
+                message: "Enter this engineer's github username:",
                 when: ({role}) => {
                     if (role === "Engineer") {
                         return true;
@@ -82,21 +83,46 @@ class Team {
                 }
             },
             {
+                type: "input",
+                name: "task",
+                message: "Enter this employee's role:",
+                when: ({role}) => {
+                    if (role === "Custom") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            },
+            {
+                type: "input",
+                name: "link",
+                message: "Enter a link for this employee:",
+                when: ({role}) => {
+                    if (role === "Custom") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            },
+            {
                 type: "confirm",
                 name: "add",
                 message: "Would you like to add another team member?",
-                default: false
+                default: true
             }
         ];
         
     }
 
     addManager() {
+        console.log("\nThis application will generate a webpage for your team.\nPlease begin by inputting your team manager's information.\n");
         inquirer.prompt(this.managerQuestions)
         .then(res => {
             const {name, id, email, office} = res;
             this.employeeList.push(new Manager(name, id, email, "Manager", office));
-            console.log("Answer the following prompts to build out the team's profiles.");
+            console.log("\nAnswer the following prompts to build out your team's profiles.\n");
             this.buildTeam();
         })
     }
@@ -104,22 +130,36 @@ class Team {
     buildTeam() {
         inquirer.prompt(this.questions)
             .then(res => {
-                const {name, id, email, role, github, school, add} = res;
+                const {name, id, email, role, github, school, task, link, add} = res;
                 if (role === "Engineer") {
                     this.employeeList.push(new Engineer(name, id, email, role, github));
                 } else if (role === "Intern") {
                     this.employeeList.push(new Intern(name, id, email, role, school));
                 } else {
-                    console.log("placeholder")//remove if no time to generate custom
+                    this.employeeList.push(new Custom(name, id, email, role, task, link));
                 }
                 if (add) {
                     this.buildTeam();
+                    return;
+                } else {
+                    console.log(this.employeeList);
+                    // return this.employeeList;
                 }
-            });
+            })
+            // .then(res => {
+            //     if (!res) {
+            //         return;
+            //     } else {
+            //         console.log(res);
+            //     }
+            // })
     }
 }
 
-const example = new Team()
+module.exports = new Team().addManager();
 
 // push to a different array depending on type - or use .filter()
 // if employeeList array is empty, then new Manager, otherwise, match type
+// self-refer to constructor class?
+// conditional manager inquirier?
+// custom employee class

@@ -59,6 +59,18 @@ const questions = [
     },
     {
         type: "input",
+        name: "github",
+        message: "Enter this engineer's github username:",
+        when: ({role}) => {
+            if (role === "Engineer") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
+    {
+        type: "input",
         name: "school",
         message: "Enter this intern's school name:",
         when: ({role}) => {
