@@ -16,7 +16,7 @@ function renderCustom(res) {
                         <i class="bi bi-person"></i>
                         ${item.getName()}
                     </h3>
-                    <ul class="card-text list-group m-3 text-info bg-white">
+                    <ul class="card-text list-group m-3 py-2 text-info bg-white">
                         <li class="list-group-item border-0"><i class="bi bi-person-badge"></i> ID: ${item.getID()}</li>
                         <li class="list-group-item border-0"><i class="bi bi-envelope"></i> Email: <a href="mailto:${item.getEmail()}" class="text-reset link-info">${item.getEmail()}</a></li>
                         <li class="list-group-item border-0"><i class="bi bi-emoji-sunglasses"></i> Role: ${item.getTask()}</li>
@@ -49,7 +49,7 @@ function renderInterns(res) {
                         <i class="bi bi-journal-bookmark-fill"></i>
                         ${item.getName()}
                     </h3>
-                    <ul class="card-text list-group m-3 text-success bg-white">
+                    <ul class="card-text list-group m-3 py-2 text-success bg-white">
                         <li class="list-group-item border-0"><i class="bi bi-person-badge"></i> ID: ${item.getID()}</li>
                         <li class="list-group-item border-0"><i class="bi bi-envelope"></i> Email: <a href="mailto:${item.getEmail()}" class="text-reset link-success">${item.getEmail()}</a></li>
                         <li class="list-group-item border-0"><i class="bi bi-book"></i> School: ${item.getSchool()}</li>
@@ -82,7 +82,7 @@ function renderEngineers(res) {
                             <i class="bi bi-file-earmark-code"></i>
                             ${item.getName()}
                         </h3>
-                        <ul class="card-text list-group m-3 text-primary bg-white">
+                        <ul class="card-text list-group m-3 py-2 text-primary bg-white">
                             <li class="list-group-item border-0"><i class="bi bi-person-badge"></i> ID: ${item.getID()}</li>
                             <li class="list-group-item border-0"><i class="bi bi-envelope"></i> Email: <a href="mailto:${item.getEmail()}" class="text-reset link-primary">${item.getEmail()}</a></li>
                             <li class="list-group-item border-0"><i class="bi bi-github"></i> GitHub: <a href="https://github.com/${item.getGitHub()}" target="_blank" class="text-reset link-primary">${item.getGitHub()}</a></li>
@@ -110,7 +110,7 @@ module.exports = res => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-        <link rel="stylesheet" href="./src/style.css"/>
+        <link rel="stylesheet" href="./assets/css/style.css"/>
         <title>Meet Our Team</title>
     </head>
     <body>
@@ -120,7 +120,7 @@ module.exports = res => {
             </h1>
         </header>
         <main>
-            <div class="container py-3">
+            <div class="container-fluid py-3">
                 <!--Managers-->
                 <h2 class="text-center mt-5 my-5">Managers</h2>
                 <div class="row">
@@ -134,7 +134,7 @@ module.exports = res => {
                                     <i class="bi bi-people-fill"></i>
                                     ${item.getName()}
                                 </h3>
-                                <ul class="card-text list-group m-3 text-danger bg-white">
+                                <ul class="card-text list-group m-3 py-2 text-danger bg-white">
                                     <li class="list-group-item border-0"><i class="bi bi-person-badge"></i> ID: ${item.getID()}</li>
                                     <li class="list-group-item border-0"><i class="bi bi-envelope"></i> Email: <a href="mailto:${item.getEmail()}" class="text-reset link-danger">${item.getEmail()}</a></li>
                                     <li class="list-group-item border-0"><i class="bi bi-building"></i> Office: ${item.getOffice()}</li>
