@@ -1,7 +1,6 @@
-// export information gathered from Inquirer to generate HTML
 // write file and copy file
 // add validations
-// add comments
+// add comments and semicolons
 
 const inquirer = require("inquirer");
 const generatePage = require("./file-template.js");
@@ -154,18 +153,29 @@ class Team {
                 if (!res) {
                     return;
                 } else {
-                    // console.log(res);
-                    // function isEngineer(item) {
-                    //     return item.role ==="Engineer";
-                    // }
-                    // console.log(res.filter(isEngineer));
-                    // filter
-                    // for each (map) run one method
-                    console.log(generatePage(res))
-                    // res.map(element => {
-                    //     console.log(generatePage(element))
-                    // })
-                    // console.log(element.getName());
+                    return generatePage(res)
+                }
+            })
+            .then(pageHTML => {
+                if (!pageHTML) {
+                    return
+                } else {
+                    return writeFile(pageHTML);
+                }
+            })
+            .then(writeFileResponse => {
+                if (!writeFileResponse){
+                    return;
+                } else {
+                    console.log(writeFileResponse);
+                    return copyFile();
+                }
+            })
+            .then(copyFileResponse => {
+                if (!copyFileResponse) {
+                    return;
+                } else {
+                    console.log(copyFileResponse);
                 }
             })
             .catch(err => {
@@ -175,8 +185,3 @@ class Team {
 }
 
 module.exports = new Team().addManager();
-
-// push to a different array depending on type - or use .filter()
-// if employeeList array is empty, then new Manager, otherwise, match type
-// self-refer to constructor class?
-// conditional manager inquirer?

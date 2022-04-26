@@ -3,7 +3,7 @@ function renderCustom(res) {
         return item.role === "Custom";
     }
     custArr = res.filter(isCustom);
-    if (custArr) {
+    if (custArr.length > 0) {
         return `
         <!--Extended Team-->
         <h2 class="text-center mt-5 my-5">Extended Team</h2>
@@ -17,12 +17,13 @@ function renderCustom(res) {
                         ${item.getName()}
                     </h3>
                     <ul class="card-text list-group m-3 text-info bg-white">
-                        <li class="list-group-item border-0">ID: ${item.getID()}</li>
-                        <li class="list-group-item border-0">Email: ${item.getEmail()}</li>
-                        <li class="list-group-item border-0">Role: ${item.getTask()}</li>
+                        <li class="list-group-item border-0"><i class="bi bi-person-badge"></i> ID: ${item.getID()}</li>
+                        <li class="list-group-item border-0"><i class="bi bi-envelope"></i> Email: <a href="mailto:${item.getEmail()}" class="text-reset link-info">${item.getEmail()}</a></li>
+                        <li class="list-group-item border-0"><i class="bi bi-emoji-sunglasses"></i> Role: ${item.getTask()}</li>
                     </ul>
                 </div>`
-            })}
+            })
+            .join("")}
             </div>
         </div>`
     } else {
@@ -35,7 +36,7 @@ function renderInterns(res) {
         return item.role === "Intern";
     }
     intArr = res.filter(isIntern);
-    if (intArr) {
+    if (intArr.length > 0) {
         return `
         <!--Interns-->
         <h2 class="text-center mt-5 my-5">Interns</h2>
@@ -49,12 +50,13 @@ function renderInterns(res) {
                         ${item.getName()}
                     </h3>
                     <ul class="card-text list-group m-3 text-success bg-white">
-                        <li class="list-group-item border-0">ID: ${item.getID()}</li>
-                        <li class="list-group-item border-0">Email: ${item.getEmail()}</li>
-                        <li class="list-group-item border-0">School: ${item.getSchool()}</li>
+                        <li class="list-group-item border-0"><i class="bi bi-person-badge"></i> ID: ${item.getID()}</li>
+                        <li class="list-group-item border-0"><i class="bi bi-envelope"></i> Email: <a href="mailto:${item.getEmail()}" class="text-reset link-success">${item.getEmail()}</a></li>
+                        <li class="list-group-item border-0"><i class="bi bi-book"></i> School: ${item.getSchool()}</li>
                     </ul>
                 </div>`
-            })}
+            })
+            .join("")}
             </div>
         </div>`
     } else {
@@ -67,7 +69,7 @@ function renderEngineers(res) {
         return item.role === "Engineer";
     }
     engArr = res.filter(isEngineer);
-    if (engArr) {
+    if (engArr.length > 0) {
         return `
         <!--Engineers-->
         <h2 class="text-center mt-5 my-5">Engineers</h2>
@@ -81,12 +83,13 @@ function renderEngineers(res) {
                             ${item.getName()}
                         </h3>
                         <ul class="card-text list-group m-3 text-primary bg-white">
-                            <li class="list-group-item border-0">ID: ${item.getID()}</li>
-                            <li class="list-group-item border-0">Email: ${item.getEmail()}</li>
-                            <li class="list-group-item border-0">GitHub: ${item.getGitHub()}</li>
+                            <li class="list-group-item border-0"><i class="bi bi-person-badge"></i> ID: ${item.getID()}</li>
+                            <li class="list-group-item border-0"><i class="bi bi-envelope"></i> Email: <a href="mailto:${item.getEmail()}" class="text-reset link-primary">${item.getEmail()}</a></li>
+                            <li class="list-group-item border-0"><i class="bi bi-github"></i> GitHub: <a href="https://github.com/${item.getGitHub()}" target="_blank" class="text-reset link-primary">${item.getGitHub()}</a></li>
                         </ul>
                     </div>`
-                })}
+                })
+                .join("")}
             </div>
         </div>
         `
@@ -107,7 +110,7 @@ module.exports = res => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-        <link rel="stylesheet" href="./style.css"/>
+        <link rel="stylesheet" href="./src/style.css"/>
         <title>Meet Our Team</title>
     </head>
     <body>
@@ -132,9 +135,9 @@ module.exports = res => {
                                     ${item.getName()}
                                 </h3>
                                 <ul class="card-text list-group m-3 text-danger bg-white">
-                                    <li class="list-group-item border-0">ID: ${item.getID()}</li>
-                                    <li class="list-group-item border-0">Email: ${item.getEmail()}</li>
-                                    <li class="list-group-item border-0">Office Number: ${item.getOffice()}</li>
+                                    <li class="list-group-item border-0"><i class="bi bi-person-badge"></i> ID: ${item.getID()}</li>
+                                    <li class="list-group-item border-0"><i class="bi bi-envelope"></i> Email: <a href="mailto:${item.getEmail()}" class="text-reset link-danger">${item.getEmail()}</a></li>
+                                    <li class="list-group-item border-0"><i class="bi bi-building"></i> Office: ${item.getOffice()}</li>
                                 </ul>
                             </div>`
                         })}
@@ -145,6 +148,11 @@ module.exports = res => {
                 ${renderCustom(res)}
             </div>
         </main>
+        <footer class="d-flex flex-column justify-content-around text-right bg-warning">
+        <p class="m-5">
+            &copy; ${new Date().getFullYear()}
+        </p>
+    </footer>
     </body>
     </html>` 
 }
