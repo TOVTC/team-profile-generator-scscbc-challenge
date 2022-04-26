@@ -1,0 +1,37 @@
+{
+  "name": "team-profile-generator-challenge",
+  "version": "1.0.0",
+  "description": "This application uses Node.js, OOP, and TDD to dynamically generate a list of employee profiles.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TOVTC/team-profile-generator-scscbc-challenge.git"
+  },
+  "keywords": [
+    "Node.js",
+    "Object Oriented Programming",
+    "Test-Driven Development",
+    "Node Package Manager",
+    "NPM",
+    "OOP",
+    "TDD"
+  ],
+  "author": "TOVTC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TOVTC/team-profile-generator-scscbc-challenge/issues"
+  },
+  "homepage": "https://github.com/TOVTC/team-profile-generator-scscbc-challenge#readme",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.2"
+  }
+}
