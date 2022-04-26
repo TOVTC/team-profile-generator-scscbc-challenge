@@ -1,8 +1,10 @@
 function renderCustom(res) {
+    // response is an array of all employees, filter for custom employees
     function isCustom(item) {
         return item.role === "Custom";
     }
     custArr = res.filter(isCustom);
+    // if user has at least one custom employee, generate custom employee field and loop through employee card generation
     if (custArr.length > 0) {
         return `
         <!--Extended Team-->
@@ -32,10 +34,12 @@ function renderCustom(res) {
 }
 
 function renderInterns(res) {
+    // response is an array of all employees, filter for interns
     function isIntern(item) {
         return item.role === "Intern";
     }
     intArr = res.filter(isIntern);
+    // if user has at least one intern, generate custom employee field and loop through employee card generation
     if (intArr.length > 0) {
         return `
         <!--Interns-->
@@ -65,10 +69,12 @@ function renderInterns(res) {
 }
 
 function renderEngineers(res) {
+    // response is an array of all employees, filter for engineers
     function isEngineer(item) {
         return item.role === "Engineer";
     }
     engArr = res.filter(isEngineer);
+    // if user has at least one engineer, generate custom employee field and loop through employee card generation
     if (engArr.length > 0) {
         return `
         <!--Engineers-->
@@ -99,9 +105,11 @@ function renderEngineers(res) {
 }
 
 module.exports = res => {
+    // manager was pushed to the same array, so retireve manager object
     function isManager(item) {
         return item.role === "Manager";
-    }    
+    }
+    // all dynamic fields are retrieved using the methods belonging to each respective employee object
     return `<!DOCTYPE html>
     <html lang="en">
     <head>

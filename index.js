@@ -1,6 +1,3 @@
-// add validations
-// add comments and semicolons
-
 const inquirer = require("inquirer");
 const generatePage = require("./file-template.js");
 const {writeFile, copyFile} = require("./generate-site.js");
@@ -11,6 +8,7 @@ const Custom = require("./lib/Custom");
 
 class Team {
     constructor() {
+        // all members added via inquirer are pused to employeeList array
         this.employeeList = [];
         this.managerQuestions = [
             {
@@ -199,6 +197,7 @@ class Team {
         
     }
 
+    // runs on page load - prompts buildTeam() function, creates new Manager object
     addManager() {
         console.log("\nThis application will generate a webpage for your team.\nPlease begin by inputting your team manager's information.\n");
         inquirer.prompt(this.managerQuestions)
@@ -213,8 +212,10 @@ class Team {
         });
     }
 
+    // self-invokes to add new members until user chooses finish
     buildTeam() {
         inquirer.prompt(this.questions)
+        // generate new employee objects depending on type, push to employeeList array
             .then(res => {
                 const {name, id, email, role, github, school, task} = res;
                 if (role === "Engineer") {
@@ -233,13 +234,15 @@ class Team {
                     return this.employeeList;
                 }
             })
+            // generate HTML from returned employeeList array
             .then(res => {
                 if (!res) {
                     return;
                 } else {
-                    return generatePage(res)
+                    return generatePage(res);
                 }
             })
+            // write file using HTML
             .then(pageHTML => {
                 if (!pageHTML) {
                     return
@@ -247,6 +250,7 @@ class Team {
                     return writeFile(pageHTML);
                 }
             })
+            // copy CSS file
             .then(writeFileResponse => {
                 if (!writeFileResponse){
                     return;
