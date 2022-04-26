@@ -1,9 +1,11 @@
-// do a mockup of the final HTML
-// add a style.css file and/or implement boostrap for final page styling
 // export information gathered from Inquirer to generate HTML
-// add validation (time permitting)
+// write file and copy file
+// add validations
+// add comments
 
 const inquirer = require("inquirer");
+const generatePage = require("./file-template.js");
+const {writeFile, copyFile} = require("./generate-site.js");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
@@ -152,8 +154,22 @@ class Team {
                 if (!res) {
                     return;
                 } else {
-                    console.log(res);
+                    // console.log(res);
+                    // function isEngineer(item) {
+                    //     return item.role ==="Engineer";
+                    // }
+                    // console.log(res.filter(isEngineer));
+                    // filter
+                    // for each (map) run one method
+                    console.log(generatePage(res))
+                    // res.map(element => {
+                    //     console.log(generatePage(element))
+                    // })
+                    // console.log(element.getName());
                 }
+            })
+            .catch(err => {
+                console.log(err);
             })
     }
 }
