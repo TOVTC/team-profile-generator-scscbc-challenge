@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
-const generatePage = require("./file-template.js");
-const {writeFile, copyFile} = require("./generate-site.js");
+const generatePage = require("./src/file-template.js");
+const {writeFile, copyFile} = require("./utils/generate-site.js");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
