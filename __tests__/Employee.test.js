@@ -25,6 +25,7 @@ test("retrieves the employee's email", () => {
     expect(employee.getEmail()).toBe("puptheband@gmail.com");
 });
 
+// if no role is provided, expect "Employee" to be returned, if role is provided, expect specified role to be returned
 test("retrieves the employee's role", () => {
     const employee = new Employee("Jeremy", 123, "puptheband@gmail.com");
     expect(employee.getRole()).toBe("Employee");
