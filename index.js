@@ -8,7 +8,7 @@ const Custom = require("./lib/Custom");
 
 class Team {
     constructor() {
-        // all members added via inquirer are pused to employeeList array
+        // all members added via inquirer are pushed to employeeList array
         this.employeeList = [];
         this.managerQuestions = [
             {
@@ -30,7 +30,7 @@ class Team {
                 message: "Please enter team manager's staff id number:",
                 validate: res => {
                     if (!res || res % 1 != 0) {
-                        console.log("a numerical value is required");
+                        console.log(" - a numerical value is required");
                         return false;
                     } else {
                         return true;
@@ -46,7 +46,7 @@ class Team {
                     if (valid) {
                         return true;
                     } else {
-                        console.log("a valid email is required");
+                        console.log(" - a valid email is required");
                         return false;
                     }
                 }
@@ -105,7 +105,7 @@ class Team {
                 },
                 validate: res => {
                     if (!res || res % 1 != 0) {
-                        console.log("a numerical value is required");
+                        console.log(" - a numerical value is required");
                         return false;
                     } else {
                         return true;
@@ -128,7 +128,7 @@ class Team {
                     if (valid) {
                         return true;
                     } else {
-                        console.log("a valid email is required");
+                        console.log(" - a valid email is required");
                         return false;
                     }
                 }
@@ -245,7 +245,7 @@ class Team {
             // write file using HTML
             .then(pageHTML => {
                 if (!pageHTML) {
-                    return
+                    return;
                 } else {
                     return writeFile(pageHTML);
                 }
