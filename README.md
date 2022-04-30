@@ -39,8 +39,9 @@
     
   ## Authors & Acknowledgements<a name="credits"></a>
   As with all projects, external resources were consulted, but special thanks to:</br>
-  Amitabh [here](https://gist.github.com/Amitabh-K/ae073eea3d5207efaddffde19b1618e8) for his regex email formatting validation</br>
+  Amitabh [here](https://gist.github.com/Amitabh-K/ae073eea3d5207efaddffde19b1618e8) for his regex email formatting validation.</br>
   Sayantini's article [here](https://www.edureka.co/blog/javascript-regex/) for the explainer on regex.</br></br>
+  And [Erik](https://github.com/CodingErik) for his office hours pointers on how to refactor the promise chain in index.js to be more streamlined (also the reminder that switch statements exist).
   Made by [TOVTC](https://github.com/TOVTC).</br>
   Originally submitted 2022Apr26.
   

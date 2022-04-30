@@ -218,20 +218,21 @@ class Team {
         // generate new employee objects depending on type, push to employeeList array
             .then(res => {
                 const {name, id, email, role, github, school, task} = res;
-                if (role === "Engineer") {
-                    this.employeeList.push(new Engineer(name, id, email, role, github));
-                    this.buildTeam();
-                    return;
-                } else if (role === "Intern") {
-                    this.employeeList.push(new Intern(name, id, email, role, school));
-                    this.buildTeam();
-                    return;
-                } else if (role === "Custom"){
-                    this.employeeList.push(new Custom(name, id, email, role, task));
-                    this.buildTeam();
-                    return;
-                } else {
-                    return this.employeeList;
+                switch(role) {
+                    case "Engineer":
+                        this.employeeList.push(new Engineer(name, id, email, role, github));
+                        this.buildTeam();
+                        break;
+                    case "Intern":
+                        this.employeeList.push(new Intern(name, id, email, role, school));
+                        this.buildTeam();
+                        break;
+                    case "Custom":
+                        this.employeeList.push(new Custom(name, id, email, role, task));
+                        this.buildTeam();
+                        break;
+                    case "Finish":
+                        return this.employeeList;
                 }
             })
             // generate HTML from returned employeeList array
@@ -239,31 +240,18 @@ class Team {
                 if (!res) {
                     return;
                 } else {
-                    return generatePage(res);
-                }
-            })
-            // write file using HTML
-            .then(pageHTML => {
-                if (!pageHTML) {
-                    return;
-                } else {
-                    return writeFile(pageHTML);
-                }
-            })
-            // copy CSS file
-            .then(writeFileResponse => {
-                if (!writeFileResponse){
-                    return;
-                } else {
-                    console.log(writeFileResponse);
-                    return copyFile();
-                }
-            })
-            .then(copyFileResponse => {
-                if (!copyFileResponse) {
-                    return;
-                } else {
-                    console.log(copyFileResponse);
+                    let pageHTML = generatePage(res);
+                    writeFile(pageHTML)
+                    .then(response => {
+                        console.log(response);
+                        return copyFile();
+                    })
+                    .then(response => {
+                        console.log(response);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
                 }
             })
             .catch(err => {
